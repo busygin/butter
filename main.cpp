@@ -8,17 +8,28 @@
 
 
 int main() {
-  std::vector<double> b;
-  std::vector<double> a;
-  highpass_butter(4, 0.1, b, a);
+  size_t N;
+  double Wn;
 
-  for(std::vector<double>::const_iterator pb=b.begin(); pb!=b.end(); ++pb)
-    std::cout << ' ' << *pb;
-  std::cout << '\n';
+  while (true) {
+    std::cout << "Input Butterworth highpass filter order and cutoff frequency (as fraction of Nyquist): ";
+    std::cin >> N >> Wn;
+    if (N==0) break;
 
-  for(std::vector<double>::const_iterator pa=a.begin(); pa!=a.end(); ++pa)
-    std::cout << ' ' << *pa;
-  std::cout << '\n';
+    std::vector<double> b;
+    std::vector<double> a;
+    highpass_butter(N, Wn, b, a);
+
+    std::cout << " b = [";
+    for (std::vector<double>::const_iterator pb = b.begin(); pb != b.end(); ++pb)
+      std::cout << ' ' << *pb;
+    std::cout << " ]\n";
+
+    std::cout << " a[1:] = [";
+    for (std::vector<double>::const_iterator pa = a.begin(); pa != a.end(); ++pa)
+      std::cout << ' ' << *pa;
+    std::cout << " ]\n";
+  }
 
   return 0;
 }
